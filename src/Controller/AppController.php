@@ -45,23 +45,24 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Auth', [
-            'loginRedirect' => [
-                'controller' => 'users',
-                'action' => 'index'
-            ],
-            'logoutRedirect' => [
-                'controller' => 'users',
-                'action' => 'login'
-            ],
-            'authError' => 'Você precisa estar logado',
-            'authenticate' => [
-                'Form' => [
-                    'fields' => ['usuario' => 'usuario', 'senha' => 'senha']
-                ]
-            ],
-            'storege' => 'Session'
-        ]);
+        // $this->loadComponent('Auth');
+        // , [
+        //     'loginRedirect' => [
+        //         'controller' => 'users',
+        //         'action' => 'index'
+        //     ],
+        //     'logoutRedirect' => [
+        //         'controller' => 'users',
+        //         'action' => 'login'
+        //     ],
+        //     'authError' => 'Você precisa estar logado',
+        //     'authenticate' => [
+        //         'Form' => [
+        //             'fields' => ['usuario' => 'usuario', 'senha' => 'senha']
+        //         ]
+        //     ],
+        //     'storege' => 'Session'
+        // ]);
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
@@ -69,11 +70,11 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
     }
 
-    public function isAuthorized($user = null)
-    {
-        $_SESSION['Auth']['User'] = $this->Auth->user();
-        return true;
-        // Default deny
-        return false;
-    }
+    // public function isAuthorized($user = null)
+    // {
+    //     $_SESSION['Auth']['User'] = $this->Auth->user();
+    //     return true;
+    //     // Default deny
+    //     return false;
+    // }
 }

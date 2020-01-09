@@ -20,14 +20,8 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users->find()
-            ->select([
-                'id',
-                'nome',
-                'usuario',
-                'email'
-            ]));
-        // debug($users);
+        $users = $this->paginate($this->Users);
+        
         $this->set(compact('users'));
     }
 

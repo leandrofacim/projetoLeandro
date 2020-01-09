@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -20,8 +19,14 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users);
-        
+        $users = $this->paginate($this->Users->find()
+            ->select([
+                'id',
+                'nome',
+                'usuario',
+                'email'
+            ]));
+        // debug($users);
         $this->set(compact('users'));
     }
 

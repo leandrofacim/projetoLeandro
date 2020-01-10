@@ -43,11 +43,11 @@ class ProdutosController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $produto = $this->Produtos->patchEntity($produto, $this->request->getData());
             if ($this->Produtos->save($produto)) {
-                $this->Flash->success(__('The produto has been saved.'));
+                $this->Flash->success(__('Produto editado com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The produto could not be saved. Please, try again.'));
+            $this->Flash->error(__('Erro não foi possivel editar produto.'));
         }
         $this->set(compact('produto'));
     }
@@ -57,9 +57,9 @@ class ProdutosController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $produto = $this->Produtos->get($id);
         if ($this->Produtos->delete($produto)) {
-            $this->Flash->success(__('The produto has been deleted.'));
+            $this->Flash->success(__('Produto deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('The produto could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Erro ao deletar o produto.'));
         }
         return $this->redirect(['action' => 'index']);
     }

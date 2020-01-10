@@ -4,25 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Users Controller
- *
- * @property \App\Model\Table\UsersTable $Users
- *
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class UsersController extends AppController
 {
 
     public function index()
     {
-        $users = $this->paginate($this->Users->find()
-            ->select([
-                'id',
-                'nome',
-                'usuario',
-                'email'
-            ]));
+        $users = $this->paginate($this->Users);
+        
         $this->set(compact('users'));
     }
 
@@ -40,11 +28,11 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Usuário cadastrado com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('Erro não foi possivel cadastrador usuário.'));
         }
         $this->set(compact('user'));
     }
@@ -57,44 +45,42 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Usuário editado com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('Erro não foi possivel editar usuário.'));
         }
         $this->set(compact('user'));
     }
 
     public function delete($id = null)
     {
-        debug($id);die;
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('Usuário deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Erro não foi possivel deletardo  usuário.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 
-    // public function login()
-    // {
-    //     if ($this->request->is('post')) {
-    //         $user = $this->Auth->identify();
-    //         if ($user) {
-    //             $this->Auth->setUser($user);
-    //             return $this->redirect($this->Auth->redirectUrl());
-    //         } else {
-    //             $this->Flash->error(__('Username or password is incorrect'));
-    //         }
-    //     }
-    // }
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            } else {
+                $this->Flash->error(__('Usuário ou senha incorretos.'));
+            }
+        }
+    }
 
-    // public function logout()
-    // {
-    //     return $this->redirect($this->Auth->logout());
-    // }
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
 }

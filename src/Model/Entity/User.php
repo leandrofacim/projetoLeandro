@@ -37,6 +37,10 @@ class User extends Entity
         'modified' => true,
     ];
 
+    protected $_hidden = [
+        'senha'
+    ];
+    
     protected function _setUsuaSenha($password)
     {
         if (strlen($password) > 0) {

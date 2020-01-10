@@ -7,12 +7,12 @@ use Cake\Routing\RouteBuilder;
 $routes->setRouteClass(DashedRoute::class);
 
 $routes->scope('/', function (RouteBuilder $builder) {
-    // Register scoped middleware for in scopes.
-    $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware([
-        'httpOnly' => true,
-    ]));
+    // // Register scoped middleware for in scopes.
+    // $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware([
+    //     'httpOnly' => true,
+    // ]));
 
-    $builder->applyMiddleware('csrf');
+    // $builder->applyMiddleware('csrf');
 
     $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 

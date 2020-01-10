@@ -3,20 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Produtos Controller
- *
- * @property \App\Model\Table\ProdutosTable $Produtos
- *
- * @method \App\Model\Entity\Produto[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class ProdutosController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
     public function index()
     {
         $produtos = $this->paginate($this->Produtos);
@@ -24,49 +12,29 @@ class ProdutosController extends AppController
         $this->set(compact('produtos'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Produto id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
         $produto = $this->Produtos->get($id, [
             'contain' => [],
         ]);
-
         $this->set('produto', $produto);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $produto = $this->Produtos->newEmptyEntity();
         if ($this->request->is('post')) {
             $produto = $this->Produtos->patchEntity($produto, $this->request->getData());
             if ($this->Produtos->save($produto)) {
-                $this->Flash->success(__('The produto has been saved.'));
+                $this->Flash->success(__('Produto cadastrado com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The produto could not be saved. Please, try again.'));
+            $this->Flash->error(__('Não foi possivel cadastrar o produto com sucesso.'));
         }
         $this->set(compact('produto'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Produto id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $produto = $this->Produtos->get($id, [
@@ -84,13 +52,6 @@ class ProdutosController extends AppController
         $this->set(compact('produto'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Produto id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -100,7 +61,6 @@ class ProdutosController extends AppController
         } else {
             $this->Flash->error(__('The produto could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

@@ -10,8 +10,8 @@ class UsersController extends AppController
     public function index()
     {
         $users = $this->paginate($this->Users);
-        
-        $this->set(compact('users'));
+        // $this->Auth->allow(['login', 'logout']);
+        $this->set(compact('users', $this->Users->find('all')));
     }
 
     public function view($id = null)
@@ -66,21 +66,21 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function login()
-    {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
-            } else {
-                $this->Flash->error(__('Usuário ou senha incorretos.'));
-            }
-        }
-    }
+    // public function login()
+    // {
+    //     if ($this->request->is('post')) {
+    //         $user = $this->Auth->identify();
+    //         if ($user) {
+    //             $this->Auth->setUser($user);
+    //             return $this->redirect($this->Auth->redirectUrl());
+    //         } else {
+    //             $this->Flash->error(__('Usuário ou senha incorretos.'));
+    //         }
+    //     }
+    // }
 
-    public function logout()
-    {
-        return $this->redirect($this->Auth->logout());
-    }
+    // public function logout()
+    // {
+    //     return $this->redirect($this->Auth->logout());
+    // }
 }
